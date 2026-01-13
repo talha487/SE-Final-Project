@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Zone - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='games.js') }}" defer></script>
+</head>
+<body class="dashboard-body">
+
+<div class="dashboard">
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">🎮</div>
+            <h3>Game Zone</h3>
+        </div>
+        
+        <div class="nav-links">
+            <a href="#race-game" class="nav-link" onclick="showGame('race-game')">
+                <span>🏎️</span> Racing Game
+            </a>
+            <a href="#space-game" class="nav-link" onclick="showGame('space-game')">
+                <span>🚀</span> Space Shooter
+            </a>
+            {% if session.role == 'admin' %}
+            <a href="/admin" class="nav-link">
+                <span>👥</span> Admin Panel
+            </a>
+            {% endif %}
+        </div>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <span>👤</span> {{ username }}
+            </div>
+            <a href="/logout" class="logout-btn">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Welcome, {{ username }}! 🎮</h1>
+            <p>Choose your game and have fun!</p>
+        </div>
+
+        <!-- Racing Game -->
+        <div id="race-game" class="game-container active">
+            <div class="game-header">
+                <h2>🏎️ Racing Game</h2>
+                <p>Use arrow keys to dodge traffic!</p>
+            </div>
+            <div class="game-card">
+                <canvas id="raceCanvas"></canvas>
+                <div class="game-controls">
+                    <button onclick="startRaceGame()" class="btn-primary">Start Race</button>
+                    <button onclick="pauseRaceGame()" class="btn-secondary">Pause</button>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Score:</span>
+                            <span id="raceScore" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">High Score:</span>
+                            <span id="raceHighScore" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Speed:</span>
+                            <span id="raceSpeed" class="stat-value">1x</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Space Shooter Game -->
+        <div id="space-game" class="game-container">
+            <div class="game-header">
+                <h2>🚀 Space Shooter</h2>
+                <p>Use arrow keys to move, SPACE to shoot!</p>
+            </div>
+            <div class="game-card">
+                <canvas id="spaceCanvas"></canvas>
+                <div class="game-controls">
+                    <button onclick="startSpaceGame()" class="btn-primary">Start Game</button>
+                    <button onclick="pauseSpaceGame()" class="btn-secondary">Pause</button>
+                    <div class="game-stats">
+                        <div class="stat">
+                            <span class="stat-label">Score:</span>
+                            <span id="spaceScore" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">High Score:</span>
+                            <span id="spaceHighScore" class="stat-value">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Lives:</span>
+                            <span id="spaceLives" class="stat-value">3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>

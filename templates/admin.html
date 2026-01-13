@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="dashboard-body">
+
+<div class="dashboard">
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">🎮</div>
+            <h3>Game Zone</h3>
+        </div>
+        
+        <div class="nav-links">
+            <a href="/admin" class="nav-link active">
+                <span>👥</span> User Management
+            </a>
+            <a href="/home" class="nav-link">
+                <span>🎯</span> Play Games
+            </a>
+        </div>
+        
+        <div class="sidebar-footer">
+            <a href="/logout" class="logout-btn">
+                <span>🚪</span> Logout
+            </a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="content-header">
+            <h1>Admin Panel</h1>
+            <p>Manage users and permissions</p>
+        </div>
+
+        {% if success %}
+        <div class="alert success">
+            <span>✓</span> User added successfully!
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Add New User</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" class="admin-form">
+                    <div class="form-grid">
+                        <div class="field">
+                            <label>Username</label>
+                            <input type="text" name="username" placeholder="Enter username" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Enter password" required>
+                        </div>
+
+                        <div class="field">
+                            <label>Role</label>
+                            <select name="role">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span>Add User</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h2>All Users</h2>
+            </div>
+            <div class="card-body">
+                <table class="users-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>
+                                <span class="badge badge-{{ user.role }}">
+                                    {{ user.role }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge badge-active">Active</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
